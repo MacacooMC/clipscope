@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClipScope</title>
+  <meta name="description" content="ClipScope: estadísticas de tus redes e ideas de videos con IA.">
+  <meta name="theme-color" content="#0b1220">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon-192.png">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="/icon-192.png" alt="">
+      <h1>ClipScope</h1>
+    </header>
+
+    <section class="hero">
+      <span class="tag">Fase 0 · en línea</span>
+      <h2>Tus redes, tus números y tus próximas ideas de video, en un solo lugar.</h2>
+      <p>ClipScope junta las estadísticas de YouTube, Twitch, TikTok e Instagram, y usa IA para analizar tus videos más populares y proponerte ideas, títulos y descripciones.</p>
+      <button class="btn" id="install" hidden>Instalar la app</button>
+    </section>
+
+    <section class="grid">
+      <div class="card"><span class="soon">Fase 1</span><h3>Panel</h3><p>Seguidores, vistas y crecimiento de todas tus redes juntas.</p></div>
+      <div class="card"><span class="soon">Fase 2</span><h3>Inspeccionar</h3><p>La IA mira tus 5 videos top y te devuelve 10 ideas listas para grabar.</p></div>
+      <div class="card"><span class="soon">Fase 3</span><h3>Competencia</h3><p>Analiza los videos top de otros creadores de tu juego.</p></div>
+      <div class="card"><span class="soon">Fase 4</span><h3>Avisos</h3><p>Te avisa por Discord cuando un video despega.</p></div>
+    </section>
+
+    <footer>
+      ClipScope, proyecto personal de MacacooMC ·
+      <a href="/privacidad">Privacidad / Privacy</a> ·
+      <a href="/terminos">Términos / Terms</a>
+    </footer>
+  </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+    let deferred;
+    const btn = document.getElementById('install');
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferred = e;
+      btn.hidden = false;
+    });
+    btn.addEventListener('click', async () => {
+      if (!deferred) return;
+      deferred.prompt();
+      await deferred.userChoice;
+      deferred = null;
+      btn.hidden = true;
+    });
+  </script>
+</body>
+</html>
